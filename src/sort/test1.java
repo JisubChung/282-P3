@@ -2,14 +2,19 @@ package sort;
 
 import java.io.*;    // for IOException
 import java.util.Arrays;  // to compare your sort against Java's
+import java.util.Random;
 
 public class test1 {
 
    public static void main(String[] args) throws IOException {
-	   int test[] = {2, 1, 4, 3, 7, 5, -10};
+	   int test[] = {2, 1, 4, 3, 7, 5, -10, 11, 52, 91, 12, 53, 20, 33, 37, 42, 92};
 	   int empty[] = {};
 	   ArraySorts tester = new ArraySorts();
-	   tester.InsertionSort(test, 7);
+	   tester.QuickSort1(test, 17);
+
+		for(int i = 0; i < 17; i++) {
+			System.out.println(test[i]);
+		}
 /*
       final int largeSize = 10000000;
       int[] number, goodone;
