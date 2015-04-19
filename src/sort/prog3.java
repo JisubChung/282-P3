@@ -33,32 +33,52 @@ class ArraySorts {
 		}
 	}
 
-	//  QS1 = "book" partition, random pivot, easiest case = 20
-	// i.e. a last small pointer separating lt & gt values
-	public static void QuickSort1(int[] a, int n) {		
+	/*QUICK CHART
+	 * QUICKSORT# ** PARTITION? ** PIVOT? ** CASE? ** INSORT?
+	 *     1			book		rand	 20			Y
+	 *     2			2ptr		rand	 20			Y
+	 *     3			book		LF	 	 20			Y
+	 *     4			2ptr		rand 	 1			N
+	 *     5			2ptr		rand	 500		Y
+	 *     6			book		rand	 1			N
+	 */
+		
+	//QUICKSORT DRIVER METHODS
+	public static void QuickSort1(int[] a, int n) {
 		QuickSort1(a, 0, n-1);
 		InsertionSort(a, n);		
 	}
 
-	// a: array to be sorted
-	// start: start index of array a
-	// end: end index of array a
+	public static void QuickSort2(int[] a, int n) {
+		QuickSort2(a, 0, n-1);
+		InsertionSort(a, n);		
+	}
+	
+	public static void QuickSort3(int[] a, int n) {
+		QuickSort3(a, 0, n-1);	
+		InsertionSort(a, n);
+	}
+	
+	public static void QuickSort4(int[] a, int n) {
+		QuickSort4(a, 0, n-1);	
+	}
+	
+	public static void QuickSort5(int[] a, int n) {
+		QuickSort5(a, 0, n-1);
+		InsertionSort(a, n);		
+	}
+
+	public static void QuickSort6(int[] a, int n) {
+		QuickSort6(a, 0, n-1);	
+	}
+	
+	//QUICKSORT RECURSIVE METHODS
 	private static void QuickSort1(int[] a, int left, int right) {
 		//easy case
-		if(((right+1)-left) <= 3) {
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
+		if(((right+1)-left) <= 20) {
 		}
 		else {
-			int lastSmall = partitionBook(a,left,right);
+			int lastSmall = partitionBook(a,left,right,false);
 			QuickSort1(a, left, lastSmall-1);
 
 			//this could be optimized
@@ -66,19 +86,89 @@ class ArraySorts {
 		}
 	}
 
-	//This partition will separate less than and greater than blocks according
-	// to a randomly selected partition value.
-	//The partition is part of the less than block
-	//The index of the last less element (the pivot) will be returned
-	private static int partitionBook(int[] a, int start, int end) {
+	private static void QuickSort2(int[] a, int left, int right) {
+		//easy case
+		if(((right+1)-left) <= 20) {
+		}
+		else {
+			int lastSmall = partition(a,left,right);
+			QuickSort1(a, left, lastSmall);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+		}
+	}
+	
+	private static void QuickSort3(int[] a, int left, int right) {
+		//easy case
+		if(((right+1)-left) <= 20) {
+		}
+		else {
+			int lastSmall = partitionBook(a,left,right,true);
+			QuickSort1(a, left, lastSmall-1);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+		}
+	}
+
+	private static void QuickSort4(int[] a, int left, int right) {
+		//easy case
+		if(((right+1)-left) <= 1) {
+		}
+		else {
+			int lastSmall = partition(a,left,right);
+			QuickSort1(a, left, lastSmall);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+		}
+	}
+	
+	private static void QuickSort5(int[] a, int left, int right) {
+		//easy case
+		if(((right+1)-left) <= 500) {
+		}
+		else {
+			int lastSmall = partition(a,left,right);
+			QuickSort1(a, left, lastSmall);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+		}
+	}
+	
+	private static void QuickSort6(int[] a, int left, int right) {
+		//easy case
+		if(((right+1)-left) <= 1) {
+		}
+		else {
+			int lastSmall = partitionBook(a,left,right,false);
+			QuickSort1(a, left, lastSmall-1);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+		}
+	}
+	
+	//QUICKSORT PARTITIONS
+	private static int partitionBook(int[] a, int start, int end, boolean useLeft) {
+		//This partition will separate less than and greater than blocks according
+		// to a randomly selected partition value.
+		//The pivot is part of the less than block
+		//Returns index of the last less element (the pivot)
 		int unknown = start+1;
 		int lastSmall = start;
 		int holdElement = a[start];
-		//pick a random pivot and swap to front
-		Random r = new Random();
-		int pivot = r.nextInt(end-start+1)+start;
-		a[start] = a[pivot];
-		a[pivot] = holdElement;
+		int pivot;
+		if(!useLeft) {
+			//pick a random pivot and swap to front
+			Random r = new Random();
+			pivot = r.nextInt(end-start+1)+start;
+			a[start] = a[pivot];
+			a[pivot] = holdElement;
+		}
+		else {} //use left most element
 		pivot = a[start];
 		//begin partitioning
 		while(unknown <= end) {
@@ -106,45 +196,40 @@ class ArraySorts {
 		a[start] = holdElement;
 		return lastSmall;
 	}
-
-	public static void QuickSort2(int[] a, int n) {
-		QuickSort2(a, 0, n-1);
-		InsertionSort(a, n);		
-	}
-
-	private static void QuickSort2(int[] a, int left, int right) {
-		//easy case
-		if(((right+1)-left) <= 3) {
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-			// CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION CHANGE THIS TO MEET SPECIFICATION
-		}
-		else {
-			int lastSmall = partitionBook(a,left,right);
-			QuickSort1(a, left, lastSmall-1);
-
-			//this could be optimized
-			QuickSort1(a, lastSmall+1, right);
-		}
-	}
 	
-	//This partition will move pointers towards each other, swapping elements
-	// as needed according to randomly selected partition value.
-	//The partition is always swapped
-	//The index of the ??????????????????????? will be returned
-	private static int partition(int[] a, int left, int right) {
-		
+	public static int partition(int[] a, int start, int end) {
+		//This partition will move pointers towards each other, swapping elements
+		// as needed according to randomly selected partition value.
+		//The pivot is always swapped
+		//Returns index of last less (may or may not include pivot)
+		int smaller = start;
+		int larger = end;
+		Random r = new Random();
+		int pivot = a[r.nextInt(end-start+1)+start];
+		int temp;
+		while(smaller <= larger) {
+			if(a[smaller] < pivot) {
+				smaller++;
+			}
+			else if(a[larger] > pivot) {
+				larger--;
+			}
+			else if((a[smaller] >= pivot) && (a[larger] <= pivot)) {
+				temp = a[smaller];
+				a[smaller] = a[larger];
+				a[larger] = temp;
+				smaller++;
+				larger--;
+			}
+		}
+		//this points to the last smaller or equal to pivot element
+		return larger;
 	}
 
-
+	
+	//BEGIN HEAPSORTS
+	
+	
 	public static void HeapSort1(int[] a, int n) {
 		//Shift, no swapping allowed
 	}

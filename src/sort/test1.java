@@ -10,7 +10,7 @@ public class test1 {
 	   int test[] = {2, 1, 4, 3, 7, 5, -10, 11, 52, 91, 12, 53, 20, 33, 37, 42, 92};
 	   int empty[] = {};
 	   ArraySorts tester = new ArraySorts();
-	   tester.QuickSort1(test, 17);
+	   tester.QuickSort2(test, 17);
 
 		for(int i = 0; i < 17; i++) {
 			System.out.println(test[i]);
