@@ -233,7 +233,7 @@ class ArraySorts {
 	public static void HeapSort1(int[] a, int n) {
 		//Shift, no swapping allowed
 		//reorganize data into a heap
-		heapify(a, n);
+		buildHeapFromTop(a, n);
 		//reorganize data in sorted order
 		int endHeap = n;
 		int temp;
@@ -248,7 +248,9 @@ class ArraySorts {
 		}
 	}
 	
-	public static void heapify(int[] a, int n) {
+	//start from the beginning of the heap (single root)
+	// then add more elements to the heap
+	public static void buildHeapFromTop(int[] a, int n) {
 		int end = 1;
 		while (end < n) {
 			trickleUp(a, 0, end);
@@ -256,23 +258,46 @@ class ArraySorts {
 		}
 	}
 	
+	//Move out of order elements UP to their proper position
 	private static void trickleUp(int[] a, int start, int endHeap) {
 		int temp;
 		int child = endHeap;
 		int parent = (child-1)/2;
-		while(child >= start && a[parent] < a[child]) {
-			/*temp = a[parent];//change this
-			a[parent] = a[child];
-			a[child] = temp;
-			child = parent;*/
-			temp = a[child];
-			for(int i = child; i > parent; i--) {
-				a[i] = a[i-1];
+		boolean isHeap = false;
+		while(!isHeap) {
+			if(a[parent] < a[child]) {
+				temp = a[child];
+				for(int i = child; i > parent;) {
+					if(i%2==0) {
+						a[i]=a[i-1];
+						i--;
+					}
+					else {
+						a[i]=a[(i-1)/2];
+						i=(i-1)/2;
+					}
+				}
+				a[parent] = temp;
+				if (parent != 0) {
+					child = parent;
+					parent = (parent-1)/2;
+				}
 			}
-			a[parent] = temp;
-			child = parent;
-			parent = (child-1)/2;
+			else {
+				isHeap = true;
+			}
 		}
+	}
+	
+	//Start from the end of the heap
+	//add elements going towards the front
+	public static void buildHeapFromBottom(int[] a, int n) {
+		
+	}
+	
+	//Move out of order elements DOWN to their proper position
+	private static void trickleDown(int[] a, int start, int endHeap) {
+		
 	}
 	
 	public static String myName() {

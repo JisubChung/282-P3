@@ -63,7 +63,7 @@ public class test1 {
 	   ////////////////HEAPSOIDS
 	   
 	   ShuffleArray(small);
-	   //tester.heapify(small,7);
+	   tester.HeapSort1(small,6);
 	   for(int i = 0; i < 7; i++) {
 		   System.out.print(small[i] + " ");
 	   }
