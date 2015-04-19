@@ -229,11 +229,52 @@ class ArraySorts {
 	
 	//BEGIN HEAPSORTS
 	
-	
+	//TOP DOWN
 	public static void HeapSort1(int[] a, int n) {
 		//Shift, no swapping allowed
+		//reorganize data into a heap
+		heapify(a, n);
+		//reorganize data in sorted order
+		int endHeap = n;
+		int temp;
+		while(endHeap > 0) {
+			temp = a[n-endHeap];
+			for(int i = 0; i < endHeap; i++) {
+				a[i] = a[i+1];
+			}
+			a[endHeap] = temp;
+			endHeap--;
+			trickleUp(a, 0, endHeap);
+		}
 	}
-
+	
+	public static void heapify(int[] a, int n) {
+		int end = 1;
+		while (end < n) {
+			trickleUp(a, 0, end);
+			end++;
+		}
+	}
+	
+	private static void trickleUp(int[] a, int start, int endHeap) {
+		int temp;
+		int child = endHeap;
+		int parent = (child-1)/2;
+		while(child >= start && a[parent] < a[child]) {
+			/*temp = a[parent];//change this
+			a[parent] = a[child];
+			a[child] = temp;
+			child = parent;*/
+			temp = a[child];
+			for(int i = child; i > parent; i--) {
+				a[i] = a[i-1];
+			}
+			a[parent] = temp;
+			child = parent;
+			parent = (child-1)/2;
+		}
+	}
+	
 	public static String myName() {
 		return "Ji-Sub Chung";
 	}
