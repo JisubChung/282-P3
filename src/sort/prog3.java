@@ -51,7 +51,7 @@ class ArraySorts {
 
 	public static void QuickSort2(int[] a, int n) {
 		QuickSort2(a, 0, n-1);
-		//InsertionSort(a, n);		
+		InsertionSort(a, n);		
 	}
 
 	public static void QuickSort3(int[] a, int n) {
@@ -60,13 +60,12 @@ class ArraySorts {
 	}
 
 	public static void QuickSort4(int[] a, int n) {
-		//QuickSort4(a, 0, n-1);	
-		QuickSort4(a, 0, n-2);
+		QuickSort4(a, 0, n-1);	
 	}
 
 	public static void QuickSort5(int[] a, int n) {
 		QuickSort5(a, 0, n-1);
-		//InsertionSort(a, n);		
+		InsertionSort(a, n);		
 	}
 
 	public static void QuickSort6(int[] a, int n) {
@@ -75,31 +74,32 @@ class ArraySorts {
 
 	//QUICKSORT RECURSIVE METHODS
 	private static void QuickSort1(int[] a, int left, int right) {
-		
-		/*
-		//easy case
-		if(((right+1)-left) <= 20) {
-		}
-		else {
-			int lastSmall = partitionBook(a,left,right,false);
-			QuickSort1(a, left, lastSmall-1);
-
-			//this could be optimized
-			QuickSort1(a, lastSmall+1, right);
-		}
-		*/
 		int partitions[];
-		//[0] elements smaller than pivot
-		//[1] elements equal to pivot
-		while((right+1) - left > 20) {
-			int pivot = left + (int) (Math.random() * (right - left + 1)); 
+		//[0] first index of partitioned pivot elements
+		//[1] last index of partitioned pivot elements
+		while((right+1) - left > 1) {
+			int pivot = 0;//left + (int) (Math.random() * (right - left + 1)); 
 			//  book's pivot method
 			partitions = partitionBook(a,left, right, pivot);
 			//the case where no new elements
 			//The case where both partitions are different
-			if(a[partitions[0]] != a[partitions[1]]) {
+			if ( (partitions[0]-1) - left < right - (partitions[1]+1) ) { 
+				// left side is smaller
+				QuickSort1(a, left, partitions[0]);
+				// eliminate the tail recursion by setting the parameters accordingly
+				left = partitions[1] + 1;  // QS(a, pivot + 1, rt,)
+			} 
+			else { // right side is smaller
+				QuickSort1(a, partitions[1], right);
+				right = partitions[0] - 1; // QS(a, lf, pivot - 1)
+			}
+			
+			
+			/*
+			
+			if(partitions[0] > -1 && a[partitions[0]] != a[partitions[1]]) {
 				// figure out which partition is smaller
-				if ( (partitions[0] - 1) - left < right - (partitions[0] + 1) ) { // left side is smaller
+				if ( (partitions[1] - 1) - left < right - (partitions[0] + 1) ) { // left side is smaller
 					QuickSort1(a, left, partitions[0] - 1);
 					// eliminate the tail recursion by setting the parameters accordingly
 					left = pivot + 1;  // QS(a, pivot + 1, rt,)
@@ -109,15 +109,15 @@ class ArraySorts {
 				}
 			}
 			else {
-				if ( (partitions[0] - 1) - left < right - (partitions[1]) ) { // left side is smaller
+				if ( (partitions[1] - 1) - left < right - (partitions[1]) ) { // left side is smaller
 					QuickSort1(a, left, partitions[0]);
 					// eliminate the tail recursion by setting the parameters accordingly
-					left = pivot + 1;  // QS(a, pivot + 1, rt,)
+					left = partitions[1] + 1;  // QS(a, pivot + 1, rt,)
 				} else { // right side is smaller
 					QuickSort1(a, partitions[1], right);
-					right = pivot - 1; // QS(a, lf, pivot - 1)
+					right = partitions[1] - 1; // QS(a, lf, pivot - 1)
 				}
-			}
+			}*/
 		}
 	}
 
@@ -153,32 +153,49 @@ class ArraySorts {
 	}
 
 	private static void QuickSort3(int[] a, int left, int right) {
-		/*/easy case
-		if(((right+1)-left) <= 20) {
-		}
-		else {
-			int lastSmall = partitionBook(a,left,right,-1,true);
-			QuickSort3(a, left, lastSmall-1);
-
-			//this could be optimized
-			QuickSort3(a, lastSmall+1, right);
-		}
-		*/
-
-		int pivot;
-		while((right+1) - left > 20) {
-			pivot = left + (int) (Math.random() * (right - left + 1)); 
+		int partitions[];
+		//[0] first index of partitioned pivot elements
+		//[1] last index of partitioned pivot elements
+		while((right+1) - left > 1) {
+			int pivot = left; 
 			//  book's pivot method
-			pivot = partitionBook(a,left, right, left);
-			// figure out which partition is smaller
-			if ( (pivot - 1) - left < right - (pivot + 1) ) { // left side is smaller
-				QuickSort3(a, left, pivot - 1);
+			partitions = partitionBook(a,left, right, pivot);
+			//the case where no new elements
+			//The case where both partitions are different
+			if ( (partitions[0]-1) - left < right - (partitions[1] + 1) ) { // left side is smaller
+				QuickSort3(a, left, partitions[0]-1);
 				// eliminate the tail recursion by setting the parameters accordingly
-				left = pivot + 1;  // QS(a, pivot + 1, rt,)
+				left = partitions[1] + 1;  // QS(a, pivot + 1, rt,)
 			} else { // right side is smaller
-				QuickSort3(a, pivot + 1, right);
-				right = pivot - 1; // QS(a, lf, pivot - 1)
+				
+				QuickSort3(a, partitions[1] + 1, right);
+				right = partitions[0] - 1; // QS(a, lf, pivot - 1)
 			}
+			
+			
+			/*
+			
+			if(partitions[0] > -1 && a[partitions[0]] != a[partitions[1]]) {
+				// figure out which partition is smaller
+				if ( (partitions[1] - 1) - left < right - (partitions[0] + 1) ) { // left side is smaller
+					QuickSort1(a, left, partitions[0] - 1);
+					// eliminate the tail recursion by setting the parameters accordingly
+					left = pivot + 1;  // QS(a, pivot + 1, rt,)
+				} else { // right side is smaller
+					QuickSort1(a, partitions[0] + 1, right);
+					right = pivot - 1; // QS(a, lf, pivot - 1)
+				}
+			}
+			else {
+				if ( (partitions[1] - 1) - left < right - (partitions[1]) ) { // left side is smaller
+					QuickSort1(a, left, partitions[0]);
+					// eliminate the tail recursion by setting the parameters accordingly
+					left = partitions[1] + 1;  // QS(a, pivot + 1, rt,)
+				} else { // right side is smaller
+					QuickSort1(a, partitions[1], right);
+					right = partitions[1] - 1; // QS(a, lf, pivot - 1)
+				}
+			}*/
 		}
 	}
 
@@ -235,36 +252,53 @@ class ArraySorts {
 		     }
 		}
 	}
-
+	
+	//something
 	private static void QuickSort6(int[] a, int left, int right) {
-		/*/easy case
-		if(((right+1)-left) <= 9) {
-		}
-		else {
-			int pivot = left + (int) (Math.random() * (right - left + 1));
-			int lastSmall = partitionBook(a,left,right,pivot);
-			QuickSort6(a, left, lastSmall-1);
-
-			//this could be optimized
-			QuickSort6(a, lastSmall+1, right);
-		}
-		*////
-		int pivot;
+		int partitions[];
+		//[0] first index of partitioned pivot elements
+		//[1] last index of partitioned pivot elements
 		while((right+1) - left > 1) {
-			pivot = left + (int) (Math.random() * (right - left + 1)); 
+			int pivot = left + (int) (Math.random() * (right - left + 1)); 
 			//  book's pivot method
-			pivot = partitionBook(a,left, right, pivot);
-			// figure out which partition is smaller
-			if ( (pivot - 1) - left < right - (pivot + 1) ) { // left side is smaller
-				QuickSort6(a, left, pivot - 1);
+			partitions = partitionBook(a,left, right, pivot);
+			//the case where no new elements
+			//The case where both partitions are different
+			if ( (partitions[0]-1) - left < right - (partitions[1] + 1) ) { // left side is smaller
+				QuickSort3(a, left, partitions[0]-1);
 				// eliminate the tail recursion by setting the parameters accordingly
-				left = pivot + 1;  // QS(a, pivot + 1, rt,)
+				left = partitions[1] + 1;  // QS(a, pivot + 1, rt,)
 			} else { // right side is smaller
-				QuickSort6(a, pivot + 1, right);
-				right = pivot - 1; // QS(a, lf, pivot - 1)
+				
+				QuickSort3(a, partitions[1] + 1, right);
+				right = partitions[0] - 1; // QS(a, lf, pivot - 1)
 			}
+			
+			
+			/*
+			
+			if(partitions[0] > -1 && a[partitions[0]] != a[partitions[1]]) {
+				// figure out which partition is smaller
+				if ( (partitions[1] - 1) - left < right - (partitions[0] + 1) ) { // left side is smaller
+					QuickSort1(a, left, partitions[0] - 1);
+					// eliminate the tail recursion by setting the parameters accordingly
+					left = pivot + 1;  // QS(a, pivot + 1, rt,)
+				} else { // right side is smaller
+					QuickSort1(a, partitions[0] + 1, right);
+					right = pivot - 1; // QS(a, lf, pivot - 1)
+				}
+			}
+			else {
+				if ( (partitions[1] - 1) - left < right - (partitions[1]) ) { // left side is smaller
+					QuickSort1(a, left, partitions[0]);
+					// eliminate the tail recursion by setting the parameters accordingly
+					left = partitions[1] + 1;  // QS(a, pivot + 1, rt,)
+				} else { // right side is smaller
+					QuickSort1(a, partitions[1], right);
+					right = partitions[1] - 1; // QS(a, lf, pivot - 1)
+				}
+			}*/
 		}
-		///
 	}
 	
 	//QUICKSORT PARTITIONS
@@ -273,41 +307,120 @@ class ArraySorts {
 		// to a randomly selected partition value.
 		//The pivot is part of the less than block
 		//Returns index of the last less element (the pivot)
-		int unknown = start+1;
-		int lastSmall = start;
-		int isPivot = start+1;
+		
+		
+		int unknown = start;
+		int lfPivot = start;
+		int rtPivot = start;
+		int piCount = 0;	
+		int pivotValue = a[pivot];
 		int temp = a[start];
-		a[start] = a[pivot];
+		a[start] = pivotValue;
 		a[pivot] = temp;
-		pivot = a[start];		
 		//begin partitioning
 		while(unknown <= end) {
-			if(a[unknown] < pivot) {
+			
+			if(a[unknown] < pivotValue) {
+				if(lfPivot==start){
+					lfPivot++;
+					rtPivot++;
+					a[start] = a[unknown];
+					temp = a[rtPivot];
+					a[rtPivot] = pivotValue;
+					a[unknown] = temp;
+				}
+				else {
+					//a[lfPivot] = a[unknown];
+					rtPivot++;
+					a[lfPivot] = a[unknown];
+					lfPivot++;
+					a[unknown] = a[rtPivot];
+					a[rtPivot] = pivotValue;
+				}
+			}
+			else if(a[unknown] == pivotValue) {
+				if(unknown==rtPivot) {
+					rtPivot=unknown;
+					piCount++;
+					if(piCount == 0) {
+						lfPivot=unknown;
+					}
+				}
+				else {
+					rtPivot++;
+					piCount++;
+					a[unknown] = a[rtPivot];
+					a[rtPivot] = pivotValue;
+				}
+			}
+			unknown++;
+		}
+			
+			
+			
+			/*
+			
+			
+			if(a[unknown] < pivotValue) {
 				//special case when ls and uk are next to each other
 				if(lastSmall+1 == unknown) {
 					lastSmall++;
+					//lastPivot++;
 				}
 				//advance ls and swap w/unknown
 				else {
+					temp = a[unknown];
+					lastSmall++;
+					a[unknown] = a[lastSmall];
+					a[lastSmall] = temp;
+				}
+			}
+			else if (a[unknown] == pivotValue) {
+				lastPivot++;
+				lastSmall++;
+				temp = a[lastPivot];
+				a[lastPivot] = a[unknown];
+				a[unknown] = a[lastSmall];
+				a[lastSmall] = temp;
+			}
+			/*				else {
+					lastPivot++;
+					temp = a[lastPivot];
+					a[lastPivot] = a[unknown];
+					a[unknown] = temp;
 					lastSmall++;
 					temp = a[lastSmall];
-					a[lastSmall] = a[unknown];
-					a[unknown] = temp;
+					a[lastSmall] = a[lastPivot];
+					a[lastPivot] = temp;
 				}				
-			}
-			else if (a[unknown] == pivot) {
-				isPivot++;
-			}
+		}
+			else if (a[unknown] == pivotValue) {
+				if(lastPivot <= end) {
+				lastPivot++;
+				temp = a[unknown];
+				a[unknown] = a[lastPivot];
+				a[lastPivot] = temp;
+				}
+				else {
+				}
 			else {
 				//do nothing
 				//this is the case where unknown > pivot 
 			}
 			unknown++;
 		}
-		temp = a[lastSmall];
-		a[lastSmall] = a[start];
-		a[start] = temp;
-		int[] partitions = {lastSmall,isPivot};
+		//temp = a[lastSmall];
+		//a[lastSmall] = a[start];
+		//a[start] = temp;
+		*/
+		int[] partitions = {lfPivot, rtPivot};
+		//put pivot[s] in the middle
+//		for(int i = 0; i <= partitions[1]-start && i <= partitions[0]-start;i++) {
+//			temp = a[start+i];
+//			a[start+i] = a[partitions[1]-i];
+//			a[partitions[1]-i] = temp;
+//		}
+//		partitions[0]=partitions[1]-partitions[0];
 		return partitions;
 	}
 
