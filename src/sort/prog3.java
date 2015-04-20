@@ -76,6 +76,7 @@ class ArraySorts {
 	private static void QuickSort1(int[] a, int left, int right) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		int partitions[];
 		//[0] first index of partitioned pivot elements
 		//[1] last index of partitioned pivot elements
@@ -122,6 +123,8 @@ class ArraySorts {
 			}*/
 =======
 =======
+=======
+>>>>>>> parent of 08eb6b7... Finished
 		//easy case
 		if(((right+1)-left) <= 20) {
 		}
@@ -135,11 +138,15 @@ class ArraySorts {
 	}
 
 	private static void QuickSort2(int[] a, int left, int right) {
+<<<<<<< HEAD
+>>>>>>> parent of 08eb6b7... Finished
+=======
 >>>>>>> parent of 08eb6b7... Finished
 		//easy case
 		if(((right+1)-left) <= 20) {
 		}
 		else {
+<<<<<<< HEAD
 <<<<<<< HEAD
 			int lastSmall = partitionBook(a,left,right,false);
 			QuickSort1(a, left, lastSmall-1);
@@ -157,15 +164,26 @@ class ArraySorts {
 
 			//this could be optimized
 			QuickSort1(a, lastSmall+1, right);
+=======
+			int lastSmall = partition(a,left,right);
+			QuickSort1(a, left, lastSmall);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+>>>>>>> parent of 08eb6b7... Finished
 		}
 	}
 	
 	private static void QuickSort3(int[] a, int left, int right) {
+<<<<<<< HEAD
+>>>>>>> parent of 08eb6b7... Finished
+=======
 >>>>>>> parent of 08eb6b7... Finished
 		//easy case
 		if(((right+1)-left) <= 20) {
 		}
 		else {
+<<<<<<< HEAD
 <<<<<<< HEAD
 			int lastSmall = partition(a,left,right);
 			QuickSort1(a, left, lastSmall);
@@ -238,6 +256,13 @@ class ArraySorts {
 			//this could be optimized
 			QuickSort1(a, lastSmall+1, right);
 >>>>>>> parent of 08eb6b7... Finished
+=======
+			int lastSmall = partitionBook(a,left,right,true);
+			QuickSort1(a, left, lastSmall-1);
+
+			//this could be optimized
+			QuickSort1(a, lastSmall+1, right);
+>>>>>>> parent of 08eb6b7... Finished
 		}
 	}
 
@@ -267,6 +292,7 @@ class ArraySorts {
 		}
 	}
 	
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 	//something
@@ -319,6 +345,9 @@ class ArraySorts {
 =======
 	private static void QuickSort6(int[] a, int left, int right) {
 >>>>>>> parent of 08eb6b7... Finished
+=======
+	private static void QuickSort6(int[] a, int left, int right) {
+>>>>>>> parent of 08eb6b7... Finished
 		//easy case
 		if(((right+1)-left) <= 1) {
 		}
@@ -329,6 +358,9 @@ class ArraySorts {
 			//this could be optimized
 			QuickSort1(a, lastSmall+1, right);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 08eb6b7... Finished
+=======
 >>>>>>> parent of 08eb6b7... Finished
 =======
 >>>>>>> parent of 08eb6b7... Finished
@@ -343,6 +375,7 @@ class ArraySorts {
 		//Returns index of the last less element (the pivot)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 		
 		int unknown = start;
@@ -354,6 +387,8 @@ class ArraySorts {
 		a[start] = pivotValue;
 		a[pivot] = temp;
 =======
+=======
+>>>>>>> parent of 08eb6b7... Finished
 =======
 >>>>>>> parent of 08eb6b7... Finished
 		int unknown = start+1;
@@ -370,6 +405,9 @@ class ArraySorts {
 		else {} //use left most element
 		pivot = a[start];
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 08eb6b7... Finished
+=======
 >>>>>>> parent of 08eb6b7... Finished
 =======
 >>>>>>> parent of 08eb6b7... Finished
@@ -428,6 +466,7 @@ class ArraySorts {
 					temp = a[unknown];
 					lastSmall++;
 <<<<<<< HEAD
+<<<<<<< HEAD
 					a[unknown] = a[lastSmall];
 					a[lastSmall] = temp;
 				}
@@ -464,12 +503,17 @@ class ArraySorts {
 =======
 =======
 >>>>>>> parent of 08eb6b7... Finished
+=======
+>>>>>>> parent of 08eb6b7... Finished
 					holdElement = a[lastSmall];
 					a[lastSmall] = a[unknown];
 					a[unknown] = holdElement;
 				}				
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 08eb6b7... Finished
+=======
 >>>>>>> parent of 08eb6b7... Finished
 =======
 >>>>>>> parent of 08eb6b7... Finished
@@ -479,6 +523,7 @@ class ArraySorts {
 			}
 			unknown++;
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		//temp = a[lastSmall];
@@ -497,11 +542,16 @@ class ArraySorts {
 =======
 =======
 >>>>>>> parent of 08eb6b7... Finished
+=======
+>>>>>>> parent of 08eb6b7... Finished
 		holdElement = a[lastSmall];
 		a[lastSmall] = a[start];
 		a[start] = holdElement;
 		return lastSmall;
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 08eb6b7... Finished
+=======
 >>>>>>> parent of 08eb6b7... Finished
 =======
 >>>>>>> parent of 08eb6b7... Finished
