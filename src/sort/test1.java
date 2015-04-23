@@ -67,11 +67,57 @@ Fearless Leader's HeapSort2 on the test sets runs in 3.680 seconds. Java Ratio =
 
 import java.io.*; // for IOException
 import java.util.Arrays; // to compare your sort against Java's
+import java.util.Random;
 
 public class test1 {
-
+	
 	public static void main(String[] args) throws IOException {
+		
+		/* 
+		int[] test1 = {0,0,1,2,4,5,6,7,7,8,8,10,10,11,12,13,14,14,15,16,16,18,21,21,23};
+		int[] test = {0,0,1,2,4,5,6,7,7,8,8,10,10,11,12,13,14,14,15,16,16,18,21,21,23};
+		for(int i = 0; i < test.length; i++) {
+			System.out.print(test[i] + " ");
+		}
+		System.out.print(" This is original \n");
+		shuffleArray(test);
+		ArraySorts sort = new ArraySorts();
+		sort.QuickSort1(test, test.length);
+		for(int i = 0; i < test.length; i++) {
+			if(test[i] == test1[i]) {
+				System.out.print(test1[i] + " ");
+			}
+			else {
+				if(test1[i] > 9) {
+					System.out.print("-- ");					
+				}
+				else {
+					System.out.print("- ");
+				}
+			}
+		}
+		System.out.print(" This is what is missing \n");
+		for(int i = 0; i < test1.length; i++) {
+			System.out.print(test1[i] + " ");
+		}
+		System.out.print(" This is what it should be \n");
+	}
+	static void shuffleArray(int[] ar)
+	  {
+	    Random rnd = new Random();
+	    for (int i = ar.length - 1; i > 0; i--)
+	    {
+	      int index = rnd.nextInt(i + 1);
+	      // Simple swap
+	      int a = ar[index];
+	      ar[index] = ar[i];
+	      ar[i] = a;
+	    }
+	  }
+}
+*/
 
+//	/*	
 		final int largeSize = 10000000;
 		int[] number, goodone;
 		int n, differ, sort, fill, i;
@@ -361,3 +407,5 @@ public class test1 {
 	}
 
 }
+
+//*/
