@@ -3,11 +3,11 @@ package sort;
 //Name: Jisub Chung
 //COMP 282 - MW
 //Assignment #3
-//4/20/2015
+//4/23/2015
 //Description: Sorting
 
 //import java.math.*;
-import java.util.Random;
+
 
 
 class ArraySorts {
@@ -77,16 +77,15 @@ class ArraySorts {
 		int pivot;
 		while((right+1) - left > 20) {
 			pivot = left + (int) (Math.random() * (right - left + 1)); 
-			//  book's pivot method
 			int temp[] = partitionBook(a,left, right, pivot);
 			int leftPivot = temp[0];
 			int rightPivot = temp[1];
-			// figure out which partition is smaller
-			if ( leftPivot - left < right - rightPivot) { // left side is smaller
+			if ( leftPivot - left < right - rightPivot) { 
+				// left side is smaller
 				QuickSort1(a, left, leftPivot-1);
-				// eliminate the tail recursion by setting the parameters accordingly
 				left = rightPivot + 1;  // QS(a, pivot + 1, rt,)
-			} else { // right side is smaller
+			} else { 
+				// right side is smaller
 				QuickSort1(a, rightPivot + 1, right);
 				right = leftPivot - 1; // QS(a, lf, pivot - 1)
 			}
@@ -95,71 +94,59 @@ class ArraySorts {
 
 	private static void QuickSort2(int[] a, int left, int right) {
 		while (right - left>= 20) {
-		     int pivot = left + (int) (Math.random() * (right - left + 1));  // bonus hint for finding the random pivot...
-		     //  book's pivot method
-		     pivot = partition(a,left, right, pivot);
-		     // figure out which partition is smaller
-		     if ( (pivot - 1) - left < right - (pivot + 1) ) { // left side is smaller
-		          QuickSort2(a, left, pivot);
-		          // eliminate the tail recursion by setting the parameters accordingly
-		          left = pivot + 1;  // QS(a, pivot + 1, rt,)
-		     } else { // right side is smaller
-		          QuickSort2(a, pivot + 1, right);
-		          right = pivot; // QS(a, lf, pivot - 1)
-		     }
+			int pivot = left + (int) (Math.random() * (right - left + 1));  
+			pivot = partition(a,left, right, pivot);
+			if ( (pivot - 1) - left < right - (pivot + 1) ) { 
+				QuickSort2(a, left, pivot);
+				left = pivot + 1;  
+			} else { 
+				QuickSort2(a, pivot + 1, right);
+				right = pivot; 
+			}
 		}
 	}
-	
+
 
 	private static void QuickSort3(int[] a, int left, int right) {
 		while((right+1) - left > 20) {
-			//  book's pivot method
 			int temp[] = partitionBook(a,left, right, left);
 			int leftPivot = temp[0];
 			int rightPivot = temp[1];
-			// figure out which partition is smaller
-			if ( leftPivot - left < right - rightPivot) { // left side is smaller
+			if ( leftPivot - left < right - rightPivot) { 
 				QuickSort3(a, left, leftPivot-1);
-				// eliminate the tail recursion by setting the parameters accordingly
-				left = rightPivot + 1;  // QS(a, pivot + 1, rt,)
-			} else { // right side is smaller
+				left = rightPivot + 1;
+			} else {
 				QuickSort3(a, rightPivot + 1, right);
-				right = leftPivot - 1; // QS(a, lf, pivot - 1)
+				right = leftPivot - 1; 
 			}
 		}
 	}
 
 	private static void QuickSort4(int[] a, int left, int right) {
 		while (right - left>= 1) {
-		     int pivot = left + (int) (Math.random() * (right - left + 1));  // bonus hint for finding the random pivot...
-		     //  book's pivot method
-		     pivot = partition(a,left, right, pivot);
-		     // figure out which partition is smaller
-		     if ( (pivot - 1) - left < right - (pivot + 1) ) { // left side is smaller
-		          QuickSort4(a, left, pivot);
-		          // eliminate the tail recursion by setting the parameters accordingly
-		          left = pivot + 1;  // QS(a, pivot + 1, rt,)
-		     } else { // right side is smaller
-		          QuickSort4(a, pivot + 1, right);
-		          right = pivot; // QS(a, lf, pivot - 1)
-		     }
+			int pivot = left + (int) (Math.random() * (right - left + 1)); 
+			pivot = partition(a,left, right, pivot);
+			if ( (pivot - 1) - left < right - (pivot + 1) ) { 
+				QuickSort4(a, left, pivot);
+				left = pivot + 1; 
+			} else {
+				QuickSort4(a, pivot + 1, right);
+				right = pivot; 
+			}
 		}
 	}
 
 	private static void QuickSort5(int[] a, int left, int right) {
 		while (right - left>= 500) {
-		     int pivot = left + (int) (Math.random() * (right - left + 1));  // bonus hint for finding the random pivot...
-		     //  book's pivot method
-		     pivot = partition(a,left, right, pivot);
-		     // figure out which partition is smaller
-		     if ( (pivot - 1) - left < right - (pivot + 1) ) { // left side is smaller
-		          QuickSort5(a, left, pivot);
-		          // eliminate the tail recursion by setting the parameters accordingly
-		          left = pivot + 1;  // QS(a, pivot + 1, rt,)
-		     } else { // right side is smaller
-		          QuickSort5(a, pivot + 1, right);
-		          right = pivot; // QS(a, lf, pivot - 1)
-		     }
+			int pivot = left + (int) (Math.random() * (right - left + 1)); 
+			pivot = partition(a,left, right, pivot);
+			if ( (pivot - 1) - left < right - (pivot + 1) ) { 
+				QuickSort5(a, left, pivot);
+				left = pivot + 1; 
+			} else { 
+				QuickSort5(a, pivot + 1, right);
+				right = pivot;
+			}
 		}
 	}
 
@@ -167,28 +154,24 @@ class ArraySorts {
 		int pivot;
 		while((right+1) - left > 1) {
 			pivot = left + (int) (Math.random() * (right - left + 1)); 
-			//  book's pivot method
 			int temp[] = partitionBook(a,left, right, pivot);
 			int leftPivot = temp[0];
 			int rightPivot = temp[1];
-			// figure out which partition is smaller
-			if ( leftPivot - left < right - rightPivot) { // left side is smaller
+			if ( leftPivot - left < right - rightPivot) {
 				QuickSort6(a, left, leftPivot-1);
-				// eliminate the tail recursion by setting the parameters accordingly
-				left = rightPivot + 1;  // QS(a, pivot + 1, rt,)
-			} else { // right side is smaller
+				left = rightPivot + 1;
+			} else {
 				QuickSort6(a, rightPivot + 1, right);
-				right = leftPivot - 1; // QS(a, lf, pivot - 1)
+				right = leftPivot - 1;
 			}
 		}
 	}
-	
+
 	//QUICKSORT PARTITIONS
 	private static int[] partitionBook(int[] a, int start, int end, int pivot) {
 		//This partition will separate less than and greater than blocks according
 		// to a randomly selected partition value.
-		//The pivot is part of the less than block
-		//Returns index of the last less element (the pivot)
+		//Returns index of the left most pivot and the right most pivot 
 		int unknown = start+1;
 		int leftPivot = start;
 		int rightPivot = start;
@@ -197,11 +180,12 @@ class ArraySorts {
 		a[pivot] = a[start];
 		a[start] = pVal;		
 		//begin partitioning
+		//Essentially what's going on here is that the pivot is a block of ints
+		// in the array. This way multiple copies of the pivot are dealt with
 		while(unknown <= end) {
 			if(a[unknown] == pVal) {
 				rightPivot++;
-				if(unknown >
-				rightPivot) {
+				if(unknown > rightPivot) {
 					temp = a[rightPivot];
 					a[rightPivot] = a[unknown];
 					a[unknown] = temp;
@@ -216,31 +200,8 @@ class ArraySorts {
 			}
 			else { //unknown > pivot
 			}
-			
-			/*
-			if(a[unknown] < pivot) {
-				//special case when ls and uk are next to each other
-				if(lastSmall+1 == unknown) {
-					lastSmall++;
-				}
-				//advance ls and swap w/unknown
-				else {
-					lastSmall++;
-					temp = a[lastSmall];
-					a[lastSmall] = a[unknown];
-					a[unknown] = temp;
-				}				
-			}
-			else {
-				//do nothing
-				//this is the case where unknown > pivot 
-			}
-			*/
 			unknown++;
 		}
-//		temp = a[leftPivot];
-//		a[leftPivot] = a[start];
-//		a[start] = temp;
 		int[] pivots = {leftPivot, rightPivot};
 		return pivots;
 	}
@@ -340,19 +301,6 @@ class ArraySorts {
 		while(!isHeap) {
 			if(a[parent] < a[child]) {
 				temp = a[child];
-				//so I don't quite understand how to shift vs swap here
-				/*
-				for(int i = child; i > parent;) {
-					if(i%2==0) {
-						a[i]=a[i-1];
-						i--;
-					}
-					else {
-						a[i]=a[(i-1)/2];
-						i=(i-1)/2;
-					}
-				}
-				*/
 				a[child] = a[parent];
 				a[parent] = temp;
 				if (parent != 0) {
@@ -365,7 +313,7 @@ class ArraySorts {
 			}
 		}
 	}
-	
+
 	//Trickle down out of order parents to proper place
 	private static void trickleDown(int[] a, int start, int endHeap) {
 		int root = start;
@@ -385,8 +333,6 @@ class ArraySorts {
 				}
 			}
 			if(a[swapThis] > a[root]) {
-				//I can't figure out how to implement w/o swap
-				//please try to be gentle with ding'ing :(
 				temp = a[root];
 				a[root] = a[swapThis];				
 				a[swapThis] = temp;
